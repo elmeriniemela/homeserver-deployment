@@ -1,0 +1,5 @@
+[servers:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[servers]
+server1 ansible_host=elmeri.asuscomm.com
