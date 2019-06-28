@@ -1,3 +1,8 @@
 [submodule "roles/ansible-role-nodejs"]
 	path = roles/ansible-role-nodejs
 	url = https://github.com/geerlingguy/ansible-role-nodejs.git
+	branch = master
+[submodule "roles/ansible-role-mongodb"]
+	path = roles/ansible-role-mongodb
+	url = https://github.com/UnderGreen/ansible-role-mongodb.git
+	branch = master
