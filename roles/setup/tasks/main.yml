@@ -1,9 +1,25 @@
+---
 
-- name: "Adding netplan configuration"
-  template: 
-    src: 50-cloud-init.yaml
-    dest: /etc/netplan/50-cloud-init.yaml
-    owner: root 
-    group: root 
-    mode: 0644
+- name: Update all packages to the latest version
+  apt:
+    name: aptitude 
 
+
+- name: Enable SSH service
+  service:
+    name: ssh
+    enabled: yes
+    state: started
+
+- name: Make sure no suspend when lid is closed
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: 'HandleLidSwitch=ignore'
+    line: 'HandleLidSwitch=ignore'
+    insertafter: "#HandleLidSwitch=suspend"
+
+- name: Restart systemd-logind service
+  service:
+    name: systemd-logind
+    enabled: yes
+    state: restarted

@@ -7,7 +7,13 @@
   become_user: root
   become_method: sudo
   roles:
+    - setup
+    - ansible-role-pip
     - ansible-role-nodejs
     - ansible-role-mongodb
+
+  vars:
+    nodejs_npm_global_packages: [pm2, ]
+    pip_package: python3-pip
 
 

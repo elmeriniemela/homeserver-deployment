@@ -6,3 +6,7 @@
 	path = roles/ansible-role-mongodb
 	url = https://github.com/UnderGreen/ansible-role-mongodb.git
 	branch = master
+[submodule "roles/ansible-role-pip"]
+	path = roles/ansible-role-pip
+	url = https://github.com/geerlingguy/ansible-role-pip.git
+	branch = master
