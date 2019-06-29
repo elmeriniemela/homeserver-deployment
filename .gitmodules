@@ -10,3 +10,7 @@
 	path = roles/ansible-role-pip
 	url = https://github.com/geerlingguy/ansible-role-pip.git
 	branch = master
+[submodule "roles/ansible-role-nginx"]
+	path = roles/ansible-role-nginx
+	url = https://github.com/geerlingguy/ansible-role-nginx.git
+	branch = master

@@ -11,9 +11,16 @@
     - ansible-role-pip
     - ansible-role-nodejs
     - ansible-role-mongodb
+    - ansible-role-nginx
+    - mern
 
   vars:
     nodejs_npm_global_packages: [pm2, ]
     pip_package: python3-pip
-
+    nginx_vhosts:
+      - listen: "80"
+        server_name: "thecodebase.site www.thecodebase.site"
+        filename: "thecodebase.site.80.conf"
+        template: "thecodebase.site.80.conf"
+      
 

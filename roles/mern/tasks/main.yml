@@ -1,0 +1,42 @@
+---
+
+# Example git checkout from Ansible Playbooks
+- name: Install websites from github.
+  git:
+    repo: 'https://github.com/thecodebasesite/{{ item }}.git'
+    dest: /opt/{{ item }}
+    version: master
+  with_items:
+    - mern
+    - thecodebase
+  register: git_finished
+
+- name: Install packages based on package.json.
+  npm:
+    path: /opt/mern/{{ item }}
+  with_items:
+    - backend
+    - frontend
+  register: npm_finished
+  when: git_finished.changed
+
+
+- name: Stop Mern Apps
+  become_user: elmeri
+  command: /usr/local/lib/npm/bin/pm2 stop {{ item }} chdir=/opt/mern/{{ item }}
+  ignore_errors: yes
+  with_items:
+    - backend
+    - frontend
+
+- name: Start Mern Apps
+  become_user: elmeri
+  command: /usr/local/lib/npm/bin/pm2 start --name={{ item }} /usr/bin/npm -- start chdir=/opt/mern/{{ item }}
+  ignore_errors: yes
+  with_items:
+    - backend
+    - frontend
+
+
+- name: Configures a startup script to launch PM2 and its managed processes on server boots
+  command: /usr/local/lib/npm/bin/pm2 startup systemd
