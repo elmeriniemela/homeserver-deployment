@@ -58,8 +58,8 @@
       state: present
       zone: thecodebase.site
       type: TXT
-      record: "{{ challenge['challenge_data']['*.domain.com']['dns-01']['resource'] }}"
-      value: "{{ challenge['challenge_data']['*.domain.com']['dns-01']['resource_value'] }}"
+      record: "{{ challenge['challenge_data']['*.thecodebase.site']['dns-01']['resource'] }}"
+      value: "{{ challenge['challenge_data']['*.thecodebase.site']['dns-01']['resource_value'] }}"
 
 
   - name: LetsEncrypt | retrieve cert
