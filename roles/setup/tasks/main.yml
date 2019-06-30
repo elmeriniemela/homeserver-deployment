@@ -17,12 +17,15 @@
     regexp: 'HandleLidSwitch=ignore'
     line: 'HandleLidSwitch=ignore'
     insertafter: "#HandleLidSwitch=suspend"
+  register: logind
+  
 
 - name: Restart systemd-logind service
   service:
     name: systemd-logind
     enabled: yes
     state: restarted
+  when: logind.changed
 
 - name: Define login_user
   set_fact:
