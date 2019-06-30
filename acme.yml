@@ -14,6 +14,7 @@
     certname: "star-thecodebase-site.pem"
     fullchain: "star-thecodebase-site-fullchain.pem"
     common_name: "*.thecodebase.site"
+  
 
   tasks:
   - name: create temp dir
@@ -51,11 +52,16 @@
       remaining_days: 60
     register: challenge
 
+  - name: "Include apikey from credentials"
+    include_vars:
+      file: credentials.yml
+
   - name: cloudflare_dns | create DNS challenge record
     cloudflare_dns:
-      account_api_token: "{{ memset_dns_api_key }}"
+      account_api_token: "{{ cloudflare_dns_api_key }}"
       account_email: niemela.elmeri@gmail.com
       state: present
+      solo: yes
       zone: thecodebase.site
       type: TXT
       record: "{{ challenge['challenge_data']['*.thecodebase.site']['dns-01']['resource'] }}"

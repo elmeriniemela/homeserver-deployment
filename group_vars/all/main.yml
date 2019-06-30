@@ -1,0 +1,8 @@
+# These variable should be global across roles
+# https://robert-reiz.com/2014/09/03/global-variables-with-ansible/
+
+# The user for whom the npm packages will be installed.
+# nodejs_install_npm_user: username
+
+# The directory for global installations.
+npm_config_prefix: "/usr/local/lib/npm"

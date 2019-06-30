@@ -7,12 +7,12 @@
   become_user: root
   become_method: sudo
   roles:
-    # - setup
-    # - ansible-role-pip
-    # - ansible-role-nodejs
-    # - ansible-role-mongodb
+    - setup
+    - ansible-role-pip
+    - ansible-role-nodejs
+    - ansible-role-mongodb
     - ansible-role-nginx
-    # - mern
+    - mern
 
   vars:
     nodejs_npm_global_packages: [pm2, ]
