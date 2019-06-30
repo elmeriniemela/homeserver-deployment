@@ -21,6 +21,12 @@
     - thecodebase
   register: git_finished
 
+- name: Init database tables
+  command: "/opt/.venv/flask/bin/python /opt/thecodebase/init_db.py"
+  register: result
+  changed_when:
+    - '"CHANGED" in result.stdout'
+
 - name: Creating credentials.json
   template:
     src: credentials.json

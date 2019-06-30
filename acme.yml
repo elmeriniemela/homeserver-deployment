@@ -10,13 +10,14 @@
     - acme
 
   vars:
-    tmpdir: "/tmp/le/"
-    account_key: "le-account-key.pem"
-    keyname: "star-thecodebase-site-key.pem"
-    csrname: "star-thecodebase-site.csr"
-    certname: "star-thecodebase-site.pem"
-    fullchain: "star-thecodebase-site-fullchain.pem"
+    zone: thecodebase.site
     common_name: "*.thecodebase.site"
-  
-
-  
+    ssl_cert_dir: "/etc/nginx/ssl/{{ zone }}/"
+    account_key: "le-account-key.pem"
+    keyname: "{{ zone }}-key.pem"
+    csrname: "{{ zone }}.csr"
+    certname: "{{ zone }}.pem"
+    fullchain: "{{ zone }}-fullchain.pem"
+    acme_directory: https://acme-staging-v02.api.letsencrypt.org/directory
+    # Production:
+    # acme_directory: https://acme-v02.api.letsencrypt.org/directory

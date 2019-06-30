@@ -21,3 +21,10 @@
       - template: "todo.thecodebase.site.80.conf"
         filename: "todo.thecodebase.site.80.conf"
         server_name: "todo.thecodebase.site"
+        state: absent
+        
+      - template: "todo.thecodebase.site.ssl.conf"
+        filename: "todo.thecodebase.site.ssl.conf"
+        server_name: "todo.thecodebase.site"
+        state: present
+

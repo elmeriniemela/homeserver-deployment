@@ -17,6 +17,7 @@ mysql_databases:
 mysql_users:
   - name: "{{ thecodebase_database_name_and_user }}"
     password: "{{ thecodebase_db_password }}"
+    priv: "*.*:ALL"
 
 mysql_packages:
   - mysql-common

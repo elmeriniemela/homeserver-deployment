@@ -20,4 +20,10 @@
       - template: "www.thecodebase.site.80.conf"
         filename: "www.thecodebase.site.80.conf"
         server_name: "thecodebase.site www.thecodebase.site"
+        state: absent
 
+
+      - template: "www.thecodebase.site.ssl.conf"
+        filename: "www.thecodebase.site.ssl.conf"
+        server_name: "thecodebase.site www.thecodebase.site"
+        state: present
