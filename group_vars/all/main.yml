@@ -6,3 +6,19 @@
 
 # The directory for global installations.
 npm_config_prefix: "/usr/local/lib/npm"
+
+thecodebase_database_name_and_user: thecodebase
+
+# Databases.
+mysql_databases:
+  - name: "{{ thecodebase_database_name_and_user }}"
+
+# Users.
+mysql_users:
+  - name: "{{ thecodebase_database_name_and_user }}"
+    password: "{{ thecodebase_db_password }}"
+
+mysql_packages:
+  - mysql-common
+  - mysql-server
+  - default-libmysqlclient-dev

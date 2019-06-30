@@ -1,0 +1,69 @@
+---
+- name: create temp dir
+  file:
+    path: "{{ tmpdir }}"
+    state: directory
+
+- name: create temp account key
+  openssl_privatekey:
+    path: "{{ tmpdir }}{{ account_key }}"
+
+- name: create private key
+  openssl_privatekey:
+    path: "{{ tmpdir }}{{ keyname }}"
+
+- name: create CSR
+  openssl_csr:
+    path: "{{ tmpdir }}{{ csrname }}"
+    privatekey_path: "{{ tmpdir }}{{ keyname }}"
+    common_name: "{{ common_name }}"
+    country_name: FI
+    organization_name: thecodebase
+    email_address: niemela.elmeri@gmail.com
+
+- name: LetsEncrypt | submit request
+  acme_certificate:
+    account_key_src: "{{ tmpdir }}{{ account_key }}"
+    account_email: niemela.elmeri@gmail.com
+    src: "{{ tmpdir }}{{ csrname }}"
+    fullchain_dest: "{{ tmpdir }}{{ certname }}"
+    challenge: dns-01
+    acme_directory: https://acme-staging-v02.api.letsencrypt.org/directory
+    acme_version: 2
+    terms_agreed: yes
+    remaining_days: 60
+  register: challenge
+
+
+- name: cloudflare_dns | create DNS challenge record
+  cloudflare_dns:
+    account_api_token: "{{ cloudflare_dns_api_key }}"
+    account_email: niemela.elmeri@gmail.com
+    state: present
+    solo: yes
+    zone: thecodebase.site
+    type: TXT
+    record: "{{ challenge['challenge_data']['*.thecodebase.site']['dns-01']['resource'] }}"
+    value: "{{ challenge['challenge_data']['*.thecodebase.site']['dns-01']['resource_value'] }}"
+
+
+- name: LetsEncrypt | retrieve cert
+  acme_certificate:
+    account_key_src: "{{ tmpdir }}{{ account_key }}"
+    account_email: niemela.elmeri@gmail.com
+    src: "{{ tmpdir }}{{ csrname }}"
+    dest: "{{ tmpdir }}{{ certname }}"
+    fullchain_dest: "{{ tmpdir }}{{ fullchain }}"
+    challenge: dns-01
+    acme_directory: https://acme-staging-v02.api.letsencrypt.org/directory
+    acme_version: 2
+    terms_agreed: yes
+    remaining_days: 60
+    data: "{{ challenge }}"
+  register: cert_retrieval
+
+- name: remove the account key
+  file:
+    path: "{{ tmpdir }}{{ account_key }}"
+    state: absent
+  when: cert_retrieval is changed

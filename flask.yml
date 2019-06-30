@@ -7,17 +7,17 @@
   become_user: root
   become_method: sudo
   roles:
+    - secrets
     - setup
     - ansible-role-pip
-    - ansible-role-nodejs
-    - ansible-role-mongodb
     - ansible-role-nginx
-    - mern
+    - ansible-role-mysql
+    - flask
 
   vars:
-    nodejs_npm_global_packages: [pm2, ]
     pip_package: python3-pip
     nginx_vhosts:
-      - template: "todo.thecodebase.site.80.conf"
-        filename: "todo.thecodebase.site.80.conf"
-        server_name: "todo.thecodebase.site"
+      - template: "www.thecodebase.site.80.conf"
+        filename: "www.thecodebase.site.80.conf"
+        server_name: "thecodebase.site www.thecodebase.site"
+

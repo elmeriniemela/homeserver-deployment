@@ -1,6 +1,5 @@
 ---
 
-# Example git checkout from Ansible Playbooks
 - name: Install websites from github.
   git:
     repo: 'https://github.com/thecodebasesite/{{ item }}.git'
@@ -9,7 +8,6 @@
     force: yes
   with_items:
     - mern
-    - thecodebase
   register: git_finished
 
 - name: Install packages based on package.json.

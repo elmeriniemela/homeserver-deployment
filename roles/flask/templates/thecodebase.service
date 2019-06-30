@@ -1,0 +1,12 @@
+Description=uWSGI instance to serve thecodebase
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/opt/thecodebase
+Environment="PATH=/opt/.venv/flask/bin"
+ExecStart=/opt/.venv/flask/bin/uwsgi --ini thecodebase.ini
+
+[Install]
+WantedBy=multi-user.target
