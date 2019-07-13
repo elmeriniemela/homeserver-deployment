@@ -5,7 +5,9 @@
 
 * https://github.com/geerlingguy/ansible-role-pip
 * https://github.com/geerlingguy/ansible-role-nodejs
+* https://github.com/geerlingguy/ansible-role-nginx
 * https://github.com/UnderGreen/ansible-role-mongodb
+* https://github.com/geerlingguy/ansible-role-mysql
 
 
 ## Usage
