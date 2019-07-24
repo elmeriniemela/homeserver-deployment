@@ -22,7 +22,8 @@
   register: git_finished
 
 - name: Init database tables
-  command: "/opt/.venv/flask/bin/python /opt/thecodebase/init_db.py"
+  become_user: root
+  command: "/opt/.venv/flask/bin/python /opt/thecodebase/init_db.py {{ mysql_root_password }}"
   register: result
   changed_when:
     - '"CHANGED" in result.stdout'
