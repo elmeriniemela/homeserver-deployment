@@ -27,3 +27,7 @@
         filename: "www.thecodebase.site.ssl.conf"
         server_name: "thecodebase.site www.thecodebase.site"
         state: present
+
+      - template: "www.myhomepages.site.80.conf"
+        filename: "www.myhomepages.site.80.conf"
+        server_name: "myhomepages.site www.myhomepages.site"

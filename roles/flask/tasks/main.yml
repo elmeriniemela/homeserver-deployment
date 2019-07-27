@@ -28,13 +28,6 @@
   changed_when:
     - '"CHANGED" in result.stdout'
 
-- name: Creating credentials.json
-  template:
-    src: credentials.json
-    dest: /opt/thecodebase/thecodebase
-    owner: root
-    group: root
-    mode: 0644
 
 - name: Install virtualenv via pip
   pip:
@@ -48,21 +41,28 @@
     virtualenv: "/opt/.venv/flask"
     virtualenv_python: /usr/bin/python3.6
 
-- name: Creating a systemd Unit File for uWSGI
-  template:
-    src: thecodebase.service
-    dest: /etc/systemd/system/thecodebase.service
-    owner: root
-    group: root
-    mode: 0644
-
 - name: Create logging directory for uwsgi
   file:
     path: "/var/log/uwsgi/"
     state: directory
 
+- name: Creating a systemd Unit File for uWSGI
+  template:
+    src: "{{ item }}.service"
+    dest: "/etc/systemd/system/{{ item }}.service"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - thecodebase
+    - myhomepages
+
+
 - name: Enable uWSGI service
   service:
-    name: thecodebase
+    name: "{{ item }}"
     enabled: yes
     state: restarted
+  with_items:
+    - thecodebase
+    - myhomepages
