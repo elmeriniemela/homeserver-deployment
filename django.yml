@@ -8,10 +8,10 @@
   become_method: sudo
   roles:
     - secrets
-    # - setup
-    # - ansible-role-pip
-    # - ansible-role-nginx
-    # - postgresql
+    - setup
+    - ansible-role-pip
+    - ansible-role-nginx
+    - postgresql
     - django
 
   vars:

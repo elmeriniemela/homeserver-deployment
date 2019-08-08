@@ -66,7 +66,7 @@
   with_items:
     - django_thecodebase
 
-- name: Django manage.py migrate
+- name: Django manage.py collectstatic --noinput
   become_user: "{{ django_user }}"
   command: "{{ venv_path }}/bin/python {{ django_home_dir }}/{{ item }}/manage.py collectstatic --noinput"
   register: result
