@@ -18,3 +18,7 @@
 	path = roles/ansible-role-mysql
 	url = https://github.com/geerlingguy/ansible-role-mysql.git
 	branch = master
+[submodule "roles/postgresql"]
+	path = roles/postgresql
+	url = https://github.com/ANXS/postgresql.git
+	branch = master

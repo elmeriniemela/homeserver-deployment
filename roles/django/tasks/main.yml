@@ -1,4 +1,13 @@
 ---
+
+- name: "Add djano system user"
+  user:
+    name: "{{ django_user }}"
+    comment: Django sys user
+    shell: /bin/bash
+    home: "{{ django_home_dir }}"
+
+
 - name: "Install dependency apt packages"
   apt:
     pkg:
@@ -9,17 +18,18 @@
       - libffi-dev
       - python3-setuptools
       - python3-venv
+      - libpq-dev
     state: present
 
 - name: Install websites from github.
   git:
     repo: "https://github.com/thecodebasesite/{{ item }}.git"
-    dest: /opt/{{ item }}
+    dest: "{{ django_home_dir }}/{{ item }}"
     version: master
     force: yes
     recursive: yes
   with_items:
-    - thecodebase
+    - django_thecodebase
   register: git_finished
 
 - name: Install virtualenv via pip
@@ -29,17 +39,19 @@
 
 - name: "Install website python requirements from requirements.txt"
   pip:
-    requirements: "/opt/thecodebase/requirements.txt"
+    requirements: "{{ django_home_dir }}/{{ item }}/requirements.txt"
     state: forcereinstall
-    virtualenv: "/opt/.venv/flask"
+    virtualenv: "{{ venv_path }}"
     virtualenv_python: /usr/bin/python3.6
+  with_items:
+    - django_thecodebase
 
-- name: Init database tables
-  become_user: root
-  command: "/opt/.venv/flask/bin/python /opt/thecodebase/init_db.py {{ mysql_root_password }}"
-  register: result
-  changed_when:
-    - '"CHANGED" in result.stdout'
+# - name: Init database tables
+#   become_user: root
+#   command: "/opt/.venv/flask/bin/python /opt/thecodebase/init_db.py {{ mysql_root_password }}"
+#   register: result
+#   changed_when:
+#     - '"CHANGED" in result.stdout'
 
 
 
@@ -51,14 +63,13 @@
 
 - name: Creating a systemd Unit File for uWSGI
   template:
-    src: "flask-website.service"
+    src: "django-website.service"
     dest: "/etc/systemd/system/{{ item }}.service"
     owner: root
     group: root
     mode: 0644
   with_items:
-    - thecodebase
-    - myhomepages
+    - django_thecodebase
 
 
 - name: Enable uWSGI service
@@ -67,5 +78,4 @@
     enabled: yes
     state: restarted
   with_items:
-    - thecodebase
-    - myhomepages
+    - django_thecodebase

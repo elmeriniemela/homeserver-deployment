@@ -1,0 +1,12 @@
+Description=uWSGI instance to serve {{ item }}
+After=network.target
+
+[Service]
+User={{ django_user }}
+Group={{ django_user }}
+WorkingDirectory={{ django_home_dir }}/{{ item }}
+Environment="PATH={{ venv_path }}/bin"
+ExecStart={{ venv_path }}/bin/uwsgi --ini {{ item }}.ini
+
+[Install]
+WantedBy=multi-user.target

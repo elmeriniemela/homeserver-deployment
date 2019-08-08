@@ -1,0 +1,37 @@
+---
+# Requires ssh key under /root/.ssh/authorized_keys
+- hosts: servers
+  user: elmeri
+  gather_facts: True
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - secrets
+    # - setup
+    # - ansible-role-pip
+    # - ansible-role-nginx
+    # - postgresql
+    - django
+
+  vars:
+    django_user: website
+    django_home_dir: "/opt/{{ django_user }}"
+    venv_path: "{{ django_home_dir }}/.venv/django"
+    pip_package: python3-pip
+    postgresql_databases:
+      - name: thecodebase
+    postgresql_users:
+      - name: "{{ django_user }}"
+        pass: "{{ thecodebase_db_password }}"
+        encrypted: yes
+    postgresql_user_privileges:
+      - name: "{{ django_user }}"
+        db: thecodebase
+        priv: "ALL"
+        role_attr_flags: "CREATEDB"
+    nginx_vhosts:
+      - template: "django.thecodebase.site.ssl.conf"
+        filename: "django.thecodebase.site.ssl.conf"
+        server_name: "django.thecodebase.site"
+        state: present
