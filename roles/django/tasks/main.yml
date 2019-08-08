@@ -1,6 +1,6 @@
 ---
 
-- name: "Add djano system user"
+- name: "Add django system user"
   user:
     name: "{{ django_user }}"
     comment: Django sys user
@@ -22,6 +22,7 @@
     state: present
 
 - name: Install websites from github.
+  become_user: "{{ django_user }}"
   git:
     repo: "https://github.com/thecodebasesite/{{ item }}.git"
     dest: "{{ django_home_dir }}/{{ item }}"
@@ -38,6 +39,7 @@
     executable: pip3
 
 - name: "Install website python requirements from requirements.txt"
+  become_user: "{{ django_user }}"
   pip:
     requirements: "{{ django_home_dir }}/{{ item }}/requirements.txt"
     state: forcereinstall
@@ -46,17 +48,35 @@
   with_items:
     - django_thecodebase
 
-# - name: Init database tables
-#   become_user: root
-#   command: "/opt/.venv/flask/bin/python /opt/thecodebase/init_db.py {{ mysql_root_password }}"
-#   register: result
-#   changed_when:
-#     - '"CHANGED" in result.stdout'
+- name: Config file for django websites
+  template:
+    src: "config.json"
+    dest: "{{ django_home_dir }}/{{ item }}/"
+    owner: "{{ django_user }}"
+    group: "{{ django_user }}"
+  with_items:
+    - django_thecodebase
 
+- name: Django manage.py migrate
+  become_user: "{{ django_user }}"
+  command: "{{ venv_path }}/bin/python {{ django_home_dir }}/{{ item }}/manage.py migrate"
+  register: result
+  changed_when:
+    - '"No migrations to apply." not in result.stdout'
+  with_items:
+    - django_thecodebase
 
-
+- name: Django manage.py migrate
+  become_user: "{{ django_user }}"
+  command: "{{ venv_path }}/bin/python {{ django_home_dir }}/{{ item }}/manage.py collectstatic --noinput"
+  register: result
+  changed_when:
+    - '"0 static files copied" not in result.stdout or "unmodified" not in result.stdout'
+  with_items:
+    - django_thecodebase
 
 - name: Create logging directory for uwsgi
+  become_user: "{{ django_user }}"
   file:
     path: "/var/log/uwsgi/"
     state: directory

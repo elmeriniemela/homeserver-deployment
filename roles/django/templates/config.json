@@ -1,0 +1,7 @@
+{
+    "psql": {
+        "USER": "{{ django_user }}",
+        "PASSWORD": "{{ thecodebase_db_password }}"
+    },
+    "SECRET_KEY": "dasdij3wqrlk32tlkt43ntl3jgsdfkjajsli4hlkjylkdkhfkiuvcs"
+}
