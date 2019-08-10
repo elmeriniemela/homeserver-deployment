@@ -1,7 +1,10 @@
 {
-    "psql": {
+    "POSTGRESQL": {
         "USER": "{{ django_user }}",
         "PASSWORD": "{{ thecodebase_db_password }}"
     },
-    "SECRET_KEY": "dasdij3wqrlk32tlkt43ntl3jgsdfkjajsli4hlkjylkdkhfkiuvcs"
+    "SECRET_KEY": "{{ thecodebase_secret_key }}",
+    "ALLOWED_HOSTS": [
+        "django.thecodebase.site"
+    ]
 }
