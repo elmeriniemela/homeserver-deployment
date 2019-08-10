@@ -1,4 +1,15 @@
 ---
+- name: Install websites from github.
+  become_user: "{{ django_user }}"
+  git:
+    repo: "https://github.com/thecodebasesite/{{ item }}.git"
+    dest: "{{ django_home_dir }}/{{ item }}"
+    version: master
+    force: yes
+    recursive: yes
+  with_items:
+    - django_thecodebase
+  register: git_finished
 
 - name: "Add django system user"
   user:
@@ -6,7 +17,6 @@
     comment: Django sys user
     shell: /bin/bash
     home: "{{ django_home_dir }}"
-
 
 - name: "Install dependency apt packages"
   apt:
@@ -20,23 +30,14 @@
       - python3-venv
       - libpq-dev
     state: present
+  when: git_finished.changed
 
-- name: Install websites from github.
-  become_user: "{{ django_user }}"
-  git:
-    repo: "https://github.com/thecodebasesite/{{ item }}.git"
-    dest: "{{ django_home_dir }}/{{ item }}"
-    version: master
-    force: yes
-    recursive: yes
-  with_items:
-    - django_thecodebase
-  register: git_finished
 
 - name: Install virtualenv via pip
   pip:
     name: virtualenv
     executable: pip3
+  when: git_finished.changed
 
 - name: "Install website python requirements from requirements.txt"
   become_user: "{{ django_user }}"
@@ -45,6 +46,7 @@
     state: forcereinstall
     virtualenv: "{{ venv_path }}"
     virtualenv_python: /usr/bin/python3.6
+  when: git_finished.changed
   with_items:
     - django_thecodebase
 
@@ -61,6 +63,7 @@
   become_user: "{{ django_user }}"
   command: "{{ venv_path }}/bin/python {{ django_home_dir }}/{{ item }}/manage.py migrate"
   register: result
+  when: git_finished.changed
   changed_when:
     - '"No migrations to apply." not in result.stdout'
   with_items:
@@ -69,9 +72,22 @@
 - name: Django manage.py collectstatic --noinput
   become_user: "{{ django_user }}"
   command: "{{ venv_path }}/bin/python {{ django_home_dir }}/{{ item }}/manage.py collectstatic --noinput"
-  register: result
+  register: collectstatic_result
+  when: git_finished.changed
   changed_when:
-    - '"0 static files copied" not in result.stdout or "unmodified" not in result.stdout'
+    - 'collectstatic_result.stdout_lines[-1].startswith("0 static files copied") == False or "unmodified" not in collectstatic_result.stdout'
+  with_items:
+    - django_thecodebase
+
+- name: Django manage.py check --deploy (Check that security settings are OK)
+  become_user: "{{ django_user }}"
+  command: "{{ venv_path }}/bin/python {{ django_home_dir }}/{{ item }}/manage.py check --deploy"
+  register: result
+  when: git_finished.changed
+  failed_when:
+    - '"System check identified no issues (0 silenced)." not in result.stdout'
+  changed_when:
+    - 'False == True'
   with_items:
     - django_thecodebase
 
@@ -88,6 +104,7 @@
     owner: root
     group: root
     mode: 0644
+  register: systemd_result
   with_items:
     - django_thecodebase
 
@@ -97,5 +114,6 @@
     name: "{{ item }}"
     enabled: yes
     state: restarted
+  when: git_finished.changed or systemd_result.changed
   with_items:
     - django_thecodebase
