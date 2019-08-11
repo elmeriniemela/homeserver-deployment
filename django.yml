@@ -32,7 +32,7 @@
         priv: "ALL"
         role_attr_flags: "CREATEDB"
     nginx_vhosts:
-      - template: "django.thecodebase.site.ssl.conf"
-        filename: "django.thecodebase.site.ssl.conf"
-        server_name: "django.thecodebase.site"
+      - template: "www.thecodebase.site.ssl.conf"
+        filename: "www.thecodebase.site.ssl.conf"
+        server_name: "www.thecodebase.site"
         state: present
