@@ -126,6 +126,6 @@
     name: "{{ item }}"
     enabled: yes
     state: restarted
-  when: git_finished.changed or systemd_result.changed
+  # when: git_finished.changed or systemd_result.changed
   with_items:
     - django_thecodebase

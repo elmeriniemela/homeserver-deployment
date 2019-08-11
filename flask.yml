@@ -10,7 +10,7 @@
     - secrets
     # - setup
     # - ansible-role-pip
-    # - ansible-role-nginx
+    - ansible-role-nginx
     # - ansible-role-mysql
     - flask
 
