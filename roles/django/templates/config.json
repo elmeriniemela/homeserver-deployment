@@ -6,5 +6,6 @@
     "SECRET_KEY": "{{ thecodebase_secret_key }}",
     "ALLOWED_HOSTS": [
         "django.thecodebase.site"
-    ]
+    ],
+    "LOG_FILE": "{{ django_home_dir }}/log/django-application.log"
 }

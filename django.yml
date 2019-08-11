@@ -21,6 +21,7 @@
     pip_package: python3-pip
     postgresql_databases:
       - name: thecodebase
+        owner: "{{ django_user }}"
     postgresql_users:
       - name: "{{ django_user }}"
         pass: "{{ thecodebase_db_password }}"
