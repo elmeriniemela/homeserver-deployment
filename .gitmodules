@@ -22,3 +22,19 @@
 	path = roles/postgresql
 	url = https://github.com/ANXS/postgresql.git
 	branch = master
+[submodule "roles/ansible-django"]
+	path = roles/ansible-django
+	url = https://github.com/thecodebasesite/ansible-django.git
+	branch = master
+[submodule "roles/ansible-mern"]
+	path = roles/ansible-mern
+	url = https://github.com/thecodebasesite/ansible-mern.git
+	branch = master
+[submodule "roles/ansible-acme"]
+	path = roles/ansible-acme
+	url = https://github.com/thecodebasesite/ansible-acme.git
+	branch = master
+[submodule "roles/ansible-flask"]
+	path = roles/ansible-flask
+	url = https://github.com/thecodebasesite/ansible-flask.git
+	branch = master

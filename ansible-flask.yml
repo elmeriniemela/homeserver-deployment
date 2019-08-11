@@ -8,10 +8,10 @@
   become_method: sudo
   roles:
     - secrets
-    # - setup
-    # - ansible-role-pip
+    - setup
+    - ansible-role-pip
     - ansible-role-nginx
-    # - ansible-role-mysql
+    - ansible-role-mysql
     - flask
 
   vars:
@@ -25,3 +25,4 @@
       - template: "www.myhomepages.site.80.conf"
         filename: "www.myhomepages.site.80.conf"
         server_name: "myhomepages.site www.myhomepages.site"
+        state: present

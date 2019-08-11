@@ -12,9 +12,10 @@
     - ansible-role-pip
     - ansible-role-nginx
     - postgresql
-    - django
+    - ansible-django
 
   vars:
+    django_hostname: www.thecodebase.site
     django_user: website
     django_home_dir: "/opt/{{ django_user }}"
     venv_path: "{{ django_home_dir }}/.venv/django"
@@ -31,8 +32,4 @@
         db: thecodebase
         priv: "ALL"
         role_attr_flags: "CREATEDB"
-    nginx_vhosts:
-      - template: "www.thecodebase.site.ssl.conf"
-        filename: "www.thecodebase.site.ssl.conf"
-        server_name: "www.thecodebase.site"
-        state: present
+

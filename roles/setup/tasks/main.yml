@@ -39,13 +39,3 @@
   set_fact:
     login_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
   when: login_user is not defined
-
-- name: "Add .bash_aliases to {{ login_user }}"
-  become_user: "{{ login_user }}"
-  template: 
-    src: ".bash_aliases" 
-    dest: "{{ lookup('env', 'HOME') }}/.bash_aliases"
-    owner: "{{ login_user }}" 
-    group: "{{ login_user }}" 
-    mode: 0644
-
