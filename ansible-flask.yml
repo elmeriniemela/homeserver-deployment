@@ -12,17 +12,25 @@
     - ansible-role-pip
     - ansible-role-nginx
     - ansible-role-mysql
-    - flask
+    - ansible-flask
 
   vars:
     pip_package: python3-pip
-    nginx_vhosts:
-      - template: "flask.thecodebase.site.ssl.conf"
-        filename: "flask.thecodebase.site.ssl.conf"
-        server_name: "flask.thecodebase.site"
-        state: present
+    websites_user: website
+    websites_home_dir: "/opt/{{ websites_user }}"
+    venv_path: "{{ websites_home_dir }}/.venv/flask"
+    websites:
+      - main_domain: thecodebase.site
+        template_name: flask-nginx.conf
+        sub_domain: flask
+        repo_name: thecodebase
+        repo_https_base_url: https://github.com/thecodebasesite
+        ssl_path: /etc/nginx/ssl/thecodebase.site
+        ssl_fullchain: thecodebase.site-fullchain.pem
+        ssl_key: thecodebase.site-key.pem
 
-      - template: "www.myhomepages.site.80.conf"
-        filename: "www.myhomepages.site.80.conf"
-        server_name: "myhomepages.site www.myhomepages.site"
-        state: present
+      - main_domain: myhomepages.site
+        template_name: flask-nginx-http.conf
+        sub_domain: www
+        repo_name: myhomepages
+        repo_https_base_url: https://github.com/essihe

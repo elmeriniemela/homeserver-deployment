@@ -17,14 +17,10 @@
   vars:
     nodejs_npm_global_packages: [pm2, ]
     pip_package: python3-pip
-    nginx_vhosts:
-      - template: "todo.thecodebase.site.80.conf"
-        filename: "todo.thecodebase.site.80.conf"
-        server_name: "todo.thecodebase.site"
-        state: absent
-        
-      - template: "todo.thecodebase.site.ssl.conf"
-        filename: "todo.thecodebase.site.ssl.conf"
-        server_name: "todo.thecodebase.site"
-        state: present
-
+    websites:
+      - main_domain: thecodebase.site
+        sub_domain: todo
+        repo_name: mern
+        ssl_path: /etc/nginx/ssl/thecodebase.site
+        ssl_fullchain: thecodebase.site-fullchain.pem
+        ssl_key: thecodebase.site-key.pem

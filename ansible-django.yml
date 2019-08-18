@@ -15,20 +15,28 @@
     - ansible-django
 
   vars:
-    django_hostname: www.thecodebase.site
-    django_user: website
-    django_home_dir: "/opt/{{ django_user }}"
-    venv_path: "{{ django_home_dir }}/.venv/django"
+    websites_user: website
+    websites_home_dir: "/opt/{{ websites_user }}"
+    venv_path: "{{ websites_home_dir }}/.venv/django"
+    websites:
+      - main_domain: thecodebase.site
+        sub_domain: www
+        repo_https_base_url: https://github.com/thecodebasesite
+        repo_name: django_thecodebase
+        ssl_path: /etc/nginx/ssl/thecodebase.site
+        ssl_fullchain: thecodebase.site-fullchain.pem
+        ssl_key: thecodebase.site-key.pem
+
     pip_package: python3-pip
     postgresql_databases:
       - name: thecodebase
-        owner: "{{ django_user }}"
+        owner: "{{ websites_user }}"
     postgresql_users:
-      - name: "{{ django_user }}"
+      - name: "{{ websites_user }}"
         pass: "{{ thecodebase_db_password }}"
         encrypted: yes
     postgresql_user_privileges:
-      - name: "{{ django_user }}"
+      - name: "{{ websites_user }}"
         db: thecodebase
         priv: "ALL"
         role_attr_flags: "CREATEDB"
