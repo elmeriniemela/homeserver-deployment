@@ -12,14 +12,16 @@
     - ansible-role-nodejs
     - ansible-role-mongodb
     - ansible-role-nginx
-    - mern
+    - ansible-mern
 
   vars:
-    nodejs_npm_global_packages: [pm2, ]
+    websites_user: website
+    websites_home_dir: "/opt/{{ websites_user }}"
     pip_package: python3-pip
     websites:
       - main_domain: thecodebase.site
         sub_domain: todo
+        repo_https_base_url: https://github.com/thecodebasesite
         repo_name: mern
         ssl_path: /etc/nginx/ssl/thecodebase.site
         ssl_fullchain: thecodebase.site-fullchain.pem
