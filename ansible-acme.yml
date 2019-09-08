@@ -7,17 +7,18 @@
   become_method: sudo
   roles:
     - secrets
-    - acme
+    - ansible-acme
 
   vars:
+    filename: wildcard.thecodebase.site
     zone: thecodebase.site
     common_name: "*.thecodebase.site"
     ssl_cert_dir: "/etc/nginx/ssl/{{ zone }}/"
     account_key: "le-account-key.pem"
-    keyname: "{{ zone }}-key.pem"
-    csrname: "{{ zone }}.csr"
-    certname: "{{ zone }}.pem"
-    fullchain: "{{ zone }}-fullchain.pem"
+    keyname: "{{ filename }}-key.pem"
+    csrname: "{{ filename }}.csr"
+    certname: "{{ filename }}.pem"
+    fullchain: "{{ filename }}-fullchain.pem"
     acme_directory: https://acme-staging-v02.api.letsencrypt.org/directory
     # Production:
     # acme_directory: https://acme-v02.api.letsencrypt.org/directory

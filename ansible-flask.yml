@@ -26,8 +26,8 @@
         repo_name: thecodebase
         repo_https_base_url: https://github.com/thecodebasesite
         ssl_path: /etc/nginx/ssl/thecodebase.site
-        ssl_fullchain: thecodebase.site-fullchain.pem
-        ssl_key: thecodebase.site-key.pem
+        ssl_fullchain: wildcard.thecodebase.site-fullchain.pem
+        ssl_key: wildcard.thecodebase.site-key.pem
 
       - main_domain: myhomepages.site
         template_name: flask-nginx-http.conf
