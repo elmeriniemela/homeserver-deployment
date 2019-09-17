@@ -33,7 +33,7 @@
         owner: "{{ websites_user }}"
     postgresql_users:
       - name: "{{ websites_user }}"
-        pass: "{{ thecodebase_db_password }}"
+        pass: "{{ website_db_password }}"
         encrypted: yes
     postgresql_user_privileges:
       - name: "{{ websites_user }}"

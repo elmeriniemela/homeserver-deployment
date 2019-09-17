@@ -34,3 +34,8 @@
         sub_domain: www
         repo_name: myhomepages
         repo_https_base_url: https://github.com/essihe
+
+    mysql_packages:
+      - mysql-common
+      - mysql-server
+      - default-libmysqlclient-dev
