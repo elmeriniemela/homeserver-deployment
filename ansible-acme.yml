@@ -10,9 +10,9 @@
     - ansible-acme
 
   vars:
-    filename: wildcard.thecodebase.site
-    zone: thecodebase.site
-    common_name: "*.thecodebase.site"
+    filename: wildcard.thecodebase.tech
+    zone: thecodebase.tech
+    common_name: "*.thecodebase.tech"
     ssl_cert_dir: "/etc/nginx/ssl/{{ zone }}/"
     account_key: "le-account-key.pem"
     keyname: "{{ filename }}-key.pem"

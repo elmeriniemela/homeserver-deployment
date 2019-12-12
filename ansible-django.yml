@@ -19,13 +19,13 @@
     websites_home_dir: "/opt/{{ websites_user }}"
     venv_path: "{{ websites_home_dir }}/.venv/django"
     websites:
-      - main_domain: thecodebase.site
+      - main_domain: thecodebase.tech
         sub_domain: www
         repo_https_base_url: https://github.com/thecodebasesite
         repo_name: django_thecodebase
-        ssl_path: /etc/nginx/ssl/thecodebase.site
-        ssl_fullchain: wildcard.thecodebase.site-fullchain.pem
-        ssl_key: wildcard.thecodebase.site-key.pem
+        ssl_path: /etc/nginx/ssl/thecodebase.tech
+        ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
+        ssl_key: wildcard.thecodebase.tech-key.pem
 
     pip_package: python3-pip
     postgresql_databases:
