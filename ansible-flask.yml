@@ -29,7 +29,7 @@
         ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
         ssl_key: wildcard.thecodebase.tech-key.pem
 
-      - main_domain: myhomepages.site
+      - main_domain: myhomepages.website
         template_name: flask-nginx-http.conf
         sub_domain: www
         repo_name: myhomepages
