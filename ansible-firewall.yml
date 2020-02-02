@@ -1,0 +1,10 @@
+---
+- hosts: servers
+  user: elmeri
+  gather_facts: True
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - ansible-firewall
+

@@ -38,3 +38,7 @@
 	path = roles/ansible-flask
 	url = https://github.com/thecodebasesite/ansible-flask.git
 	branch = master
+[submodule "roles/ansible-firewall"]
+	path = roles/ansible-firewall
+	url = https://github.com/thecodebasesite/ansible-firewall.git
+	branch = master
