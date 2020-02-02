@@ -20,14 +20,14 @@
     websites_home_dir: "/opt/{{ websites_user }}"
     venv_path: "{{ websites_home_dir }}/.venv/flask"
     websites:
-      - main_domain: thecodebase.tech
-        template_name: flask-nginx.conf
-        sub_domain: flask
-        repo_name: thecodebase
-        repo_https_base_url: https://github.com/thecodebasesite
-        ssl_path: /etc/nginx/ssl/thecodebase.tech
-        ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
-        ssl_key: wildcard.thecodebase.tech-key.pem
+      # - main_domain: thecodebase.tech
+      #   template_name: flask-nginx.conf
+      #   sub_domain: flask
+      #   repo_name: thecodebase
+      #   repo_https_base_url: https://github.com/thecodebasesite
+      #   ssl_path: /etc/nginx/ssl/thecodebase.tech
+      #   ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
+      #   ssl_key: wildcard.thecodebase.tech-key.pem
 
       - main_domain: myhomepages.website
         template_name: flask-nginx-http.conf
