@@ -24,3 +24,13 @@
 * Deploy MERN stack application `ansible-playbook ansible-mern.yml -K`
 * Deploy Django applications `ansible-playbook ansible-django.yml -K`
 * Order wildcard certificate from LetsEncrypt with CloudFlare `ansible-playbook ansible-acme.yml -K`
+
+credentials.yml must contain the following secrets:
+* website_db_password
+* mysql_root_password
+* website_secret_key
+* mongodb_user_admin_password
+* mongodb_root_admin_password
+* mongodb_root_backup_password
+* cloudflare_dns_api_key
+* thecodebase_admin_password

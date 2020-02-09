@@ -19,6 +19,7 @@
     csrname: "{{ filename }}.csr"
     certname: "{{ filename }}.pem"
     fullchain: "{{ filename }}-fullchain.pem"
-    acme_directory: https://acme-staging-v02.api.letsencrypt.org/directory
     # Production:
-    # acme_directory: https://acme-v02.api.letsencrypt.org/directory
+    acme_directory: https://acme-v02.api.letsencrypt.org/directory
+    # Staging
+    # acme_directory: https://acme-staging-v02.api.letsencrypt.org/directory

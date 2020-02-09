@@ -26,6 +26,10 @@
         ssl_path: /etc/nginx/ssl/thecodebase.tech
         ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
         ssl_key: wildcard.thecodebase.tech-key.pem
+        django_admin:
+          login: elmeri
+          email: niemela.elmeri@gmail.com
+          password: "{{ thecodebase_admin_password }}"
 
     pip_package: python3-pip
     postgresql_databases:

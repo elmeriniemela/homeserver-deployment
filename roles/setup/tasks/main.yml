@@ -39,3 +39,17 @@
   set_fact:
     login_user: "{{ ansible_user | default(lookup('env', 'USER')) }}"
   when: login_user is not defined
+
+#https://github.com/geerlingguy/ansible-role-pip/issues/12
+- name: add universe repository for bionic
+  apt_repository: 
+    repo: deb http://archive.ubuntu.com/ubuntu bionic universe
+    state: present
+  when: ansible_distribution_release == 'bionic'
+
+- name: "Add website system user"
+  user:
+    name: "{{ websites_user }}"
+    comment: Website sys user
+    shell: /bin/bash
+    home: "{{ websites_home_dir }}"
