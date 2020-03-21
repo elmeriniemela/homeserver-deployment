@@ -22,7 +22,7 @@
 
 * Deploy flask based website thecodebase. `ansible-playbook ansible-flask.yml -K`
 * Deploy MERN stack application `ansible-playbook ansible-mern.yml -K`
-* Deploy Django applications `ansible-playbook ansible-django.yml -K`
+* Deploy Django applications `ansible-playbook ansible-django.yml -K`. For updates use `--tags=secrets,django`
 * Order wildcard certificate from LetsEncrypt with CloudFlare `ansible-playbook ansible-acme.yml -K`
 
 credentials.yml must contain the following secrets:
@@ -34,3 +34,5 @@ credentials.yml must contain the following secrets:
 * mongodb_root_backup_password
 * cloudflare_dns_api_key
 * thecodebase_admin_password
+* nextcloud_admin_password
+* nextcloud_user_mysql_password
