@@ -12,11 +12,11 @@
 
 ### Homemade roles used:
 
-* https://github.com/thecodebasesite/ansible-django
-* https://github.com/thecodebasesite/ansible-mern
-* https://github.com/thecodebasesite/ansible-flask
-* https://github.com/thecodebasesite/ansible-acme
-* https://github.com/thecodebasesite/ansible-nextcloud
+* https://github.com/elmeriniemela/ansible-django
+* https://github.com/elmeriniemela/ansible-mern
+* https://github.com/elmeriniemela/ansible-flask
+* https://github.com/elmeriniemela/ansible-acme
+* https://github.com/elmeriniemela/ansible-nextcloud
 
 
 ### Usage

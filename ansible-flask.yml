@@ -24,7 +24,7 @@
       #   template_name: flask-nginx.conf
       #   sub_domain: flask
       #   repo_name: thecodebase
-      #   repo_https_base_url: https://github.com/thecodebasesite
+      #   repo_https_base_url: https://github.com/elmeriniemela
       #   ssl_path: /etc/nginx/ssl/thecodebase.tech
       #   ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
       #   ssl_key: wildcard.thecodebase.tech-key.pem
