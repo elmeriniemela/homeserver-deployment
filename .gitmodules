@@ -42,3 +42,7 @@
 	path = roles/ansible-firewall
 	url = https://github.com/thecodebasesite/ansible-firewall.git
 	branch = master
+[submodule "roles/ansible-nextcloud"]
+	path = roles/ansible-nextcloud
+	url = https://github.com/thecodebasesite/ansible-nextcloud.git
+	branch = master

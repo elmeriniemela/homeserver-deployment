@@ -1,0 +1,41 @@
+---
+# Requires ssh key under /root/.ssh/authorized_keys
+- hosts: servers
+  user: elmeri
+  gather_facts: True
+  become: yes
+  become_user: root
+  become_method: sudo
+  roles:
+    - secrets
+    - setup
+    - ansible-role-nginx
+    - ansible-role-mysql
+    - ansible-nextcloud
+
+  vars:
+    websites_user: www-data
+    websites_home_dir: /opt/website
+    nextcloud_domain: nextcloud.thecodebase.tech
+    ssl_path: /etc/nginx/ssl/thecodebase.tech
+    ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
+    ssl_key: wildcard.thecodebase.tech-key.pem
+    nextcloud_version: "18.0.0"
+
+    mysql_packages:
+      - mysql-common
+      - mysql-server
+      - default-libmysqlclient-dev
+
+    # Databases.
+    mysql_databases:
+      - name: nextcloud
+        encoding: utf8
+        replicate: 1
+
+    # Users.
+    mysql_users:
+      - name: nextcloud_user
+        host: localhost
+        password: "{{ nextcloud_user_mysql_password}}"
+        priv: "nextcloud.*:ALL"
