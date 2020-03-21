@@ -12,18 +12,20 @@
 
 ### Homemade roles used:
 
-* https://github.com/thecodebasesite/ansible-acme
 * https://github.com/thecodebasesite/ansible-django
-* https://github.com/thecodebasesite/ansible-flask
 * https://github.com/thecodebasesite/ansible-mern
+* https://github.com/thecodebasesite/ansible-flask
+* https://github.com/thecodebasesite/ansible-acme
+* https://github.com/thecodebasesite/ansible-nextcloud
 
 
 ### Usage
 
-* Deploy flask based website thecodebase. `ansible-playbook ansible-flask.yml -K`
-* Deploy MERN stack application `ansible-playbook ansible-mern.yml -K`
 * Deploy Django applications `ansible-playbook ansible-django.yml -K`. For updates use `--tags=secrets,django`
+* Deploy MERN stack application `ansible-playbook ansible-mern.yml -K`. For updates use `--tags=secrets,mern`
+* Deploy flask based website thecodebase. `ansible-playbook ansible-flask.yml -K`
 * Order wildcard certificate from LetsEncrypt with CloudFlare `ansible-playbook ansible-acme.yml -K`
+* Deploy personal NextCloud server `ansible-playbook ansible-nextcloud.yml -K`
 
 credentials.yml must contain the following secrets:
 * website_db_password
