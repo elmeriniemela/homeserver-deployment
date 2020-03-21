@@ -22,7 +22,8 @@
       - main_domain: thecodebase.tech
         sub_domain: www
         repo_https_base_url: https://github.com/elmeriniemela
-        repo_name: django_thecodebase
+        repo_name: thecodebase
+        project_name: django_thecodebase
         ssl_path: /etc/nginx/ssl/thecodebase.tech
         ssl_fullchain: wildcard.thecodebase.tech-fullchain.pem
         ssl_key: wildcard.thecodebase.tech-key.pem
